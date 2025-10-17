@@ -1,11 +1,7 @@
 <template>
   <div class="home">
     <div class="articles-grid">
-      <article 
-        v-for="article in displayedArticles" 
-        :key="article.id" 
-        class="article-card"
-      >
+      <article v-for="article in displayedArticles" :key="article.id" class="article-card">
         <div class="article-thumbnail">
           <img :src="article.thumbnail" :alt="article.title">
         </div>
@@ -24,11 +20,7 @@
             <span class="comment-count">{{ article.commentCount }} 评论</span>
           </div>
           <div class="article-tags">
-            <span 
-              v-for="tag in article.tags" 
-              :key="tag"
-              class="tag"
-            >
+            <span v-for="tag in article.tags" :key="tag" class="tag">
               {{ tag }}
             </span>
           </div>
@@ -37,13 +29,59 @@
     </div>
 
     <div class="load-more" v-if="hasMoreArticles">
-      <button 
-        @click="loadMoreArticles" 
-        :disabled="loading"
-        class="load-more-btn"
-      >
+      <button @click="loadMoreArticles" :disabled="loading" class="load-more-btn">
         {{ loading ? '加载中...' : '加载更多' }}
       </button>
+    </div>
+
+    <!-- 侧边栏内容 -->
+    <div class="sidebar">
+      <!-- 作者信息 -->
+      <div class="sidebar-widget author-widget">
+        <h3 class="widget-title">关于作者</h3>
+        <div class="author-avatar">
+          <img src="/src/assets/logo.svg" alt="作者头像">
+        </div>
+        <h4 class="author-name">前端开发者</h4>
+        <p class="author-bio">专注于前端技术分享，热爱Vue.js、React等现代前端框架，致力于打造优雅的用户体验。</p>
+      </div>
+
+      <!-- 热门文章 -->
+      <div class="sidebar-widget">
+        <h3 class="widget-title">热门文章</h3>
+        <ul class="hot-articles">
+          <li v-for="(article, index) in hotArticles" :key="article.id" class="hot-article-item">
+            <span class="article-rank">{{ index + 1 }}</span>
+            <router-link :to="`/article/${article.id}`" class="hot-article-title">
+              {{ article.title }}
+            </router-link>
+          </li>
+        </ul>
+      </div>
+
+      <!-- 分类列表 -->
+      <div class="sidebar-widget">
+        <h3 class="widget-title">文章分类</h3>
+        <ul class="category-list">
+          <li v-for="category in categories" :key="category.id" class="category-item">
+            <router-link :to="`/category?id=${category.id}`">
+              {{ category.name }}
+              <span class="category-count">({{ category.count }})</span>
+            </router-link>
+          </li>
+        </ul>
+      </div>
+
+      <!-- 标签云 -->
+      <div class="sidebar-widget">
+        <h3 class="widget-title">标签云</h3>
+        <div class="tag-cloud">
+          <router-link v-for="(tag) in allTags" :key="tag" to="/" class="cloud-tag"
+            :style="{ fontSize: getRandomFontSize() }">
+            {{ tag }}
+          </router-link>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -123,10 +161,30 @@ export default {
       ],
       currentPage: 1,
       pageSize: 6,
-      loading: false
+      loading: false,
+      categories: [
+        { id: 1, name: '前端开发', count: 6 },
+        { id: 2, name: 'JavaScript', count: 3 },
+        { id: 3, name: 'CSS', count: 2 },
+        { id: 4, name: 'Vue.js', count: 4 }
+      ]
     }
   },
   computed: {
+    hotArticles() {
+      // 按评论数排序获取热门文章
+      return [...this.articles]
+        .sort((a, b) => b.commentCount - a.commentCount)
+        .slice(0, 5)
+    },
+    allTags() {
+      // 收集所有文章的标签
+      const tagSet = new Set()
+      this.articles.forEach(article => {
+        article.tags.forEach(tag => tagSet.add(tag))
+      })
+      return Array.from(tagSet)
+    },
     displayedArticles() {
       return this.articles.slice(0, this.currentPage * this.pageSize)
     },
@@ -141,6 +199,11 @@ export default {
       await new Promise(resolve => setTimeout(resolve, 1000))
       this.currentPage++
       this.loading = false
+    },
+    getRandomFontSize() {
+      // 生成随机字体大小，使标签云看起来更自然
+      const sizes = ['0.9em', '1em', '1.1em', '1.2em']
+      return sizes[Math.floor(Math.random() * sizes.length)]
     }
   }
 }
@@ -173,7 +236,8 @@ export default {
 
 .article-thumbnail {
   position: relative;
-  padding-top: 56.25%; /* 16:9 aspect ratio */
+  padding-top: 56.25%;
+  /* 16:9 aspect ratio */
 }
 
 .article-thumbnail img {
@@ -280,12 +344,150 @@ export default {
   }
 
   /* 侧边栏样式 */
-  .home::after {
-    content: '';
+  .sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+  }
+
+  .sidebar-widget {
     background: #f8f8f8;
     padding: 20px;
     border-radius: 10px;
-    height: fit-content;
+  }
+
+  .widget-title {
+    font-size: 1.2em;
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #4CAF50;
+    color: #333;
+  }
+
+  .author-widget {
+    text-align: center;
+  }
+
+  .author-avatar {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin: 0 auto 15px;
+    border: 3px solid #fff;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }
+
+  .author-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .author-name {
+    font-size: 1.1em;
+    margin-bottom: 10px;
+    color: #333;
+  }
+
+  .author-bio {
+    color: #666;
+    font-size: 0.9em;
+    line-height: 1.5;
+  }
+
+  .hot-articles {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .hot-article-item {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 15px;
+  }
+
+  .article-rank {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: #4CAF50;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.8em;
+    margin-right: 10px;
+    flex-shrink: 0;
+  }
+
+  .hot-article-title {
+    color: #333;
+    text-decoration: none;
+    font-size: 0.9em;
+    line-height: 1.4;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    transition: color 0.3s ease;
+  }
+
+  .hot-article-title:hover {
+    color: #4CAF50;
+  }
+
+  .category-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .category-item {
+    margin-bottom: 10px;
+  }
+
+  .category-item a {
+    color: #333;
+    text-decoration: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: color 0.3s ease;
+  }
+
+  .category-item a:hover {
+    color: #4CAF50;
+  }
+
+  .category-count {
+    background: #eee;
+    padding: 2px 8px;
+    border-radius: 10px;
+    font-size: 0.8em;
+    color: #666;
+  }
+
+  .tag-cloud {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .cloud-tag {
+    color: #666;
+    text-decoration: none;
+    background: #eee;
+    padding: 5px 10px;
+    border-radius: 3px;
+    transition: all 0.3s ease;
+  }
+
+  .cloud-tag:hover {
+    background: #4CAF50;
+    color: white;
+    transform: translateY(-2px);
   }
 }
 
@@ -332,6 +534,23 @@ export default {
 
   .tag {
     font-size: 0.8em;
+  }
+
+  /* 移动端侧边栏适配 */
+  .sidebar {
+    margin-top: 40px;
+  }
+
+  .sidebar-widget {
+    background: #f8f8f8;
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+  }
+
+  .widget-title {
+    font-size: 1.1em;
+    margin-bottom: 10px;
   }
 }
 </style>

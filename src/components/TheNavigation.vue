@@ -5,12 +5,8 @@
         <router-link to="/" class="logo">
           <span class="logo-text">Web Blog</span>
         </router-link>
-        <button 
-          class="mobile-menu-toggle" 
-          @click="toggleMobileMenu"
-          :aria-expanded="isMobileMenuOpen"
-          aria-label="Toggle navigation menu"
-        >
+        <button class="mobile-menu-toggle" @click="toggleMobileMenu" :aria-expanded="isMobileMenuOpen"
+          aria-label="Toggle navigation menu">
           <span class="hamburger-line"></span>
           <span class="hamburger-line"></span>
           <span class="hamburger-line"></span>
@@ -19,35 +15,22 @@
 
       <ul class="nav-links" :class="{ 'show': isMobileMenuOpen }">
         <li>
-          <router-link 
-            to="/" 
-            exact
-            @click="closeMobileMenu"
-          >
+          <router-link to="/" exact @click="closeMobileMenu">
             首页
           </router-link>
         </li>
         <li>
-          <router-link 
-            to="/category" 
-            @click="closeMobileMenu"
-          >
+          <router-link to="/category" @click="closeMobileMenu">
             分类
           </router-link>
         </li>
         <li>
-          <router-link 
-            to="/about" 
-            @click="closeMobileMenu"
-          >
+          <router-link to="/about" @click="closeMobileMenu">
             关于
           </router-link>
         </li>
         <li>
-          <router-link 
-            to="/contact" 
-            @click="closeMobileMenu"
-          >
+          <router-link to="/contact" @click="closeMobileMenu">
             联系
           </router-link>
         </li>
