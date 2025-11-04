@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>联系我们 - 博客站点</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<header>
+    <nav>
+        <div class="logo">博客站点</div>
+        <div class="menu" id="menu">
+            <ul>
+                <li><a href="index.html">首页</a></li>
+                <li><a href="category.html">文章分类</a></li>
+                <li><a href="about.html">关于</a></li>
+                <li><a href="contact.html">联系</a></li>
+            </ul>
+        </div>
+        <div class="hamburger" id="hamburger">&#9776;</div>
+    </nav>
+</header>
+
+<main>
+    <section class="contact-page">
+        <h1>联系我们</h1>
+        <div class="contact-container">
+            <div class="contact-info">
+                <div class="contact-item">
+                    <h2>邮箱</h2>
+                    <p>2572926913@qq.com</p>
+                    <p>zhaichen198@outlook.com</p>
+                    <p>zxy361127@gmail.com</p>
+                    <p>zhaichen198@yau.edu.cn</p>
+                </div>
+                <div class="contact-item">
+                    <h2>社交媒体</h2>
+                    <p>
+                        <a href="#">Bilibili</a> | 
+                        <a href="#">CSDN</a> | 
+                        <a href="#">GitHub</a>
+                    </p>
+                </div>
+                <div class="contact-item">
+                    <h2>地址</h2>
+                    <p>延安大学新城校区<br>南区篮球场旁菜鸟驿站</p>
+                </div>
+            </div>
+            
+            <div class="contact-form">
+                <h2>发送消息</h2>
+                <form>
+                    <label for="contact-name">姓名：</label>
+                    <input type="text" id="contact-name" name="name" required>
+                    
+                    <label for="contact-email">邮箱：</label>
+                    <input type="email" id="contact-email" name="email" required>
+                    
+                    <label for="contact-message">消息：</label>
+                    <textarea id="contact-message" name="message" required></textarea>
+                    
+                    <button type="submit">发送</button>
+                </form>
+            </div>
+        </div>
+    </section>
+</main>
+
+<footer>
+    <p>&copy; 2025 博客站点 | <a href="#">友情链接</a></p>
+</footer>
+
+<script src="global.js"></script>
+</body>
+</html>

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>文章详情</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<header>
+    <nav>
+        <div class="logo">博客站点</div>
+        <div class="menu" id="menu">
+            <ul>
+                <li><a href="index.html">首页</a></li>
+                <li><a href="category.html">文章分类</a></li>
+                <li><a href="about.html">关于</a></li>
+                <li><a href="contact.html">联系</a></li>
+            </ul>
+        </div>
+        <div class="hamburger" id="hamburger">&#9776;</div>
+    </nav>
+</header>
+
+<main>
+    <article class="post-detail">
+        <h1 id="article-title">文章标题</h1>
+        <p id="author">作者：张三</p>
+        <p id="publish-date">发布日期：2025-11-03</p>
+        <div id="article-content">
+            <p>文章正文内容...</p>
+        </div>
+    </article>
+
+    <section class="comments-section">
+        <h2>评论</h2>
+        <div id="comments-list">
+            <!-- 评论列表会通过JS动态插入 -->
+        </div>
+    </section>
+
+    <section class="comment-form">
+        <h2>发表评论</h2>
+        <form id="comment-form">
+            <label for="name">姓名：</label>
+            <input type="text" id="name" name="name" required placeholder="请输入您的姓名">
+            <br>
+            <label for="email">邮箱：</label>
+            <input type="email" id="email" name="email" required placeholder="请输入您的邮箱">
+            <br>
+            <label for="content">评论内容：</label>
+            <textarea id="content" name="content" required placeholder="请输入评论内容"></textarea>
+            <br>
+            <button type="submit">提交评论</button>
+        </form>
+        <div id="error-message" style="color: red; display: none;"></div>
+    </section>
+</main>
+
+<footer>
+    <p>&copy; 2025 博客站点 | <a href="#">友情链接</a></p>
+</footer>
+
+<script src="global.js"></script>
+<script src="detail.js"></script>
+</body>
+</html>

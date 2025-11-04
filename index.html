@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>首页 - 博客站点</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+    <header>
+        <nav>
+            <div class="logo">博客站点</div>
+            <div class="menu" id="menu">
+                <ul>
+                    <li><a href="index.html">首页</a></li>
+                    <li><a href="category.html">分类</a></li>
+                    <li><a href="about.html">关于</a></li>
+                    <li><a href="contact.html">联系</a></li>
+                </ul>
+            </div>
+            <div class="hamburger" id="hamburger">&#9776;</div>
+        </nav>
+    </header>
+
+    <main class="main-container">
+        <div class="content-wrapper">
+            <section class="article-list" id="article-list">
+                <!-- 文章条目会通过JS动态插入 -->
+            </section>
+
+            <button id="load-more" class="load-more-btn">加载更多</button>
+        </div>
+
+        <aside class="sidebar">
+            <div class="sidebar-widget">
+                <h3>热门文章</h3>
+                <div class="hot-articles" id="hot-articles">
+                    <!-- 热门文章会通过JS动态插入 -->
+                </div>
+            </div>
+
+            <div class="sidebar-widget">
+                <h3>文章分类</h3>
+                <ul class="category-list">
+                    <li><a href="category.html#tech">技术文章</a></li>
+                    <li><a href="category.html#life">生活随笔</a></li>
+                    <li><a href="category.html#study">学习笔记</a></li>
+                </ul>
+            </div>
+
+            <div class="sidebar-widget">
+                <h3>标签</h3>
+                <div class="tag-cloud">
+                    <span class="tag">JavaScript</span>
+                    <span class="tag">CSS</span>
+                    <span class="tag">HTML</span>
+                    <span class="tag">React</span>
+                    <span class="tag">Vue</span>
+                    <span class="tag">Node.js</span>
+                </div>
+            </div>
+        </aside>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 博客站点 | <a href="#">友情链接</a></p>
+    </footer>
+
+    <script src="global.js"></script>
+    <script src="script.js"></script>
+</body>
+
+</html>
