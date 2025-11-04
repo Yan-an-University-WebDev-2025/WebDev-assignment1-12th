@@ -140,8 +140,18 @@ async function fetchUserData(userId) {
      */
     getCommentsData() {
         return [
-            { author: "李四", date: "2025-10-02", content: "这篇文章解释得非常清晰，让我对闭包有了更深的理解！" },
-            { author: "王五", date: "2025-10-03", content: "作者用简单的例子解释了复杂的概念，非常适合初学者阅读。" }
+            { 
+                author: "李四", 
+                date: "2025-10-02", 
+                content: "这篇文章解释得非常清晰，让我对闭包有了更深的理解！",
+                avatar: "L"
+            },
+            { 
+                author: "王五", 
+                date: "2025-10-03", 
+                content: "作者用简单的例子解释了复杂的概念，非常适合初学者阅读。",
+                avatar: "W"
+            }
         ];
     }
 
@@ -176,10 +186,19 @@ async function fetchUserData(userId) {
     createCommentElement(comment) {
         const commentElement = document.createElement('div');
         commentElement.classList.add('comment-item');
+        
+        // 生成头像字母（使用昵称首字母）
+        const avatarLetter = comment.avatar || comment.author.charAt(0).toUpperCase();
+        
         commentElement.innerHTML = `
-            <div class="author">${comment.author}</div>
-            <div class="date">${comment.date}</div>
-            <div class="content">${comment.content}</div>
+            <div class="comment-avatar">${avatarLetter}</div>
+            <div class="comment-content-wrapper">
+                <div class="comment-header">
+                    <div class="author">${comment.author}</div>
+                    <div class="date">${comment.date}</div>
+                </div>
+                <div class="content">${comment.content}</div>
+            </div>
         `;
         return commentElement;
     }
@@ -233,10 +252,15 @@ async function fetchUserData(userId) {
      * @param {string} content - 评论内容
      */
     addNewComment(author, content) {
+        // 获取当前登录用户
+        const currentUserStr = localStorage.getItem('blog_current_user');
+        const currentUser = currentUserStr ? JSON.parse(currentUserStr) : null;
+        
         const newComment = {
             author,
             date: new Date().toLocaleDateString('zh-CN'),
-            content
+            content,
+            avatar: currentUser ? currentUser.nickname.charAt(0).toUpperCase() : author.charAt(0).toUpperCase()
         };
 
         this.commentsList.appendChild(this.createCommentElement(newComment));

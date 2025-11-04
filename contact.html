@@ -14,7 +14,7 @@
         <div class="menu" id="menu">
             <ul>
                 <li><a href="index.html">首页</a></li>
-                <li><a href="category.html">文章分类</a></li>
+                <li><a href="category.html">分类</a></li>
                 <li><a href="about.html">关于</a></li>
                 <li><a href="contact.html">联系</a></li>
             </ul>
@@ -38,9 +38,9 @@
                 <div class="contact-item">
                     <h2>社交媒体</h2>
                     <p>
-                        <a href="#">Bilibili</a> | 
-                        <a href="#">CSDN</a> | 
-                        <a href="#">GitHub</a>
+                        <a href="#" target="_blank">Bilibili</a> | 
+                        <a href="#" target="_blank">CSDN</a> | 
+                        <a href="#" target="_blank">GitHub</a>
                     </p>
                 </div>
                 <div class="contact-item">
@@ -51,17 +51,17 @@
             
             <div class="contact-form">
                 <h2>发送消息</h2>
-                <form>
+                <form id="contact-form-submit">
                     <label for="contact-name">姓名：</label>
-                    <input type="text" id="contact-name" name="name" required>
+                    <input type="text" id="contact-name" name="name" required placeholder="请输入您的姓名">
                     
                     <label for="contact-email">邮箱：</label>
-                    <input type="email" id="contact-email" name="email" required>
+                    <input type="email" id="contact-email" name="email" required placeholder="请输入您的邮箱">
                     
                     <label for="contact-message">消息：</label>
-                    <textarea id="contact-message" name="message" required></textarea>
+                    <textarea id="contact-message" name="message" required placeholder="请输入您想说的话..."></textarea>
                     
-                    <button type="submit">发送</button>
+                    <button type="submit">发送消息</button>
                 </form>
             </div>
         </div>
@@ -69,9 +69,37 @@
 </main>
 
 <footer>
-    <p>&copy; 2025 博客站点 | <a href="#">友情链接</a></p>
+    <p>&copy; 2025 博客站点 | <a href="https://www.csdn.net/">CSDN</a></p>
 </footer>
 
 <script src="global.js"></script>
+<script>
+// 联系表单提交处理
+document.addEventListener('DOMContentLoaded', () => {
+    const contactForm = document.getElementById('contact-form-submit');
+    
+    if (contactForm) {
+        contactForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            const name = document.getElementById('contact-name').value;
+            const email = document.getElementById('contact-email').value;
+            const message = document.getElementById('contact-message').value;
+            
+            // 这里可以添加实际的发送逻辑
+            alert(`感谢您的消息！
+
+姓名：${name}
+邮箱：${email}
+消息：${message}
+
+我们会尽快回复您！`);
+            
+            // 清空表单
+            contactForm.reset();
+        });
+    }
+});
+</script>
 </body>
 </html>

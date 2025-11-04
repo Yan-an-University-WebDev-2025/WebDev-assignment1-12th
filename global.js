@@ -83,11 +83,60 @@ class GlobalNavigation {
     }
 
     /**
+     * 显示用户信息或登录按钮
+     */
+    displayUserInfo() {
+        const menuUl = document.querySelector('header nav .menu ul');
+        if (!menuUl) return;
+
+        // 移除旧的用户信息
+        const oldUserInfo = menuUl.querySelector('.user-info-item');
+        if (oldUserInfo) {
+            oldUserInfo.remove();
+        }
+
+        const userInfoLi = document.createElement('li');
+        userInfoLi.className = 'user-info-item';
+
+        // 直接从 localStorage 获取用户信息
+        const currentUserStr = localStorage.getItem('blog_current_user');
+        const currentUser = currentUserStr ? JSON.parse(currentUserStr) : null;
+
+        if (currentUser) {
+            userInfoLi.innerHTML = `
+                <div class="user-info">
+                    <div class="user-avatar">${currentUser.nickname.charAt(0).toUpperCase()}</div>
+                    <span class="user-nickname">${currentUser.nickname}</span>
+                    <button class="logout-btn" id="logout-btn">退出</button>
+                </div>
+            `;
+
+            // 绑定退出按钮
+            setTimeout(() => {
+                const logoutBtn = document.getElementById('logout-btn');
+                if (logoutBtn) {
+                    logoutBtn.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        localStorage.removeItem('blog_current_user');
+                        alert('退出成功！');
+                        window.location.reload();
+                    });
+                }
+            }, 0);
+        } else {
+            userInfoLi.innerHTML = '<a href="login.html" class="login-link">登录/注册</a>';
+        }
+
+        menuUl.appendChild(userInfoLi);
+    }
+
+    /**
      * 初始化全局功能
      */
     init() {
         this.highlightCurrentPage();
         this.initMobileMenu();
+        this.displayUserInfo();
         
         // 监听窗口大小变化，自动调整菜单状态
         window.addEventListener('resize', () => {
