@@ -70,7 +70,7 @@ header nav .menu .login-link:hover {
     opacity: 0.8;
 }
 
-/* 当前页面导航项高亮样�?*/
+/* 当前页面导航项高亮样式 */
 header nav .menu a.active {
     color: #007bff;
     font-weight: bold;
@@ -88,7 +88,7 @@ header nav .menu a.active::after {
     border-radius: 1px;
 }
 
-/* 移动端菜单激活状�?*/
+/* 移动端菜单激活状态 */
 header nav .menu.active ul {
     display: flex;
     animation: slideDown 0.3s ease;
@@ -188,7 +188,7 @@ main {
     gap: 4px;
 }
 
-/* 文章详情页样式/
+/* 文章详情页样式 */
 .post-detail {
     background: white;
     padding: 30px;
